@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application>
+
+        <!--
+          KSP (androidx.appfunctions-compiler) generates NotesAppFunctionService, a concrete
+          subclass of appfunctions/BaseNotesAppFunctionService.kt, from the
+          @AppFunctionServiceEntryPoint(serviceName = "NotesAppFunctionService") annotation on
+          that abstract class. This is the service the platform binds to when an agent (e.g.
+          Gemini) executes one of this app's AppFunctions. Declared here, in the feature module's
+          own manifest fragment, and merged into the final app manifest by AGP's manifest merger.
+        -->
+        <service
+            android:name="com.pramodpatel.notesfunctions.appfunctions.NotesAppFunctionService"
+            android:permission="android.permission.BIND_APP_FUNCTION_SERVICE"
+            android:exported="true"
+            tools:targetApi="37">
+            <property
+                android:name="android.app.appfunctions.schema"
+                android:value="app_functions_schema.xsd" />
+            <property
+                android:name="android.app.appfunctions.v2"
+                android:value="notes_app_function_service.xml" />
+            <intent-filter>
+                <action android:name="android.app.appfunctions.AppFunctionService" />
+            </intent-filter>
+        </service>
+
+        <property
+            android:name="android.app.appfunctions.app_metadata"
+            android:resource="@xml/app_metadata" />
+
+    </application>
+
+</manifest>

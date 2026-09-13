@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Item 3: Certificate Transparency (CT).
+
+  Apps targeting Android 17 (API 37) get CT enforcement enabled by default for
+  all publicly trusted certificates; no configuration is required to turn it on.
+  See https://developer.android.com/privacy-and-security/security-config#CertificateTransparencySummary
+
+  The certificateTransparency tag below is the platform's documented opt-out
+  knob, shown here for reference and left at enabled="true" (a no-op relative
+  to the API-37 default) so the sample keeps enforcement on for the domain it talks
+  to. Flipping this to "false" is how an app would deliberately disable CT for a
+  domain if it had a documented reason to (e.g. an internal CA during development).
+-->
+<network-security-config>
+    <domain-config>
+        <domain includeSubdomains="true">example.com</domain>
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+        <certificateTransparency enabled="true" />
+    </domain-config>
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+</network-security-config>

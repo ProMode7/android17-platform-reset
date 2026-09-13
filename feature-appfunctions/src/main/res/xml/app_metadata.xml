@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Global operational rules for this app's AppFunctions, read by the platform
+  and surfaced to agents (e.g. Gemini) alongside the per-function metadata
+  generated from the @AppFunction / @AppFunctionSerializable KDoc.
+  Attribute names come from androidx.appfunctions (AppFunctionAppMetadata).
+-->
+<AppFunctionAppMetadata xmlns:appfn="http://schemas.android.com/apk/androidx.appfunctions"
+    appfn:description="This app manages a small, private list of text notes.
+    Operational Patterns:
+    - Use 'createNote' to add a new note with a title and body content.
+    - Use 'listNotes' to retrieve every note currently stored.
+    - Use 'deleteNote' to remove a note by the id returned from 'createNote' or 'listNotes'.
+    Constraints:
+    - Notes are stored only on this device, in memory, for this demo."
+    appfn:displayDescription="@string/appfunctions_display_description" />

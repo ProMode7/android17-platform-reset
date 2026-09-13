@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Item 3: standard HTTPS requests (Certificate Transparency enforcement itself is automatic
+         for apps targeting API 37+; no manifest opt-in required, see res/xml/network_security_config.xml
+         for the documented opt-out knob). -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Item 2: Android 17 runtime permission gating local-network (LAN) traffic, including
+         NsdManager service discovery. Declaring this has no effect unless targetSdk is 37+. -->
+    <uses-permission android:name="android.permission.ACCESS_LOCAL_NETWORK" />
+
+    <!-- Item 4: BluetoothSocket RFCOMM I/O. BLUETOOTH_CONNECT is the API 31+ runtime permission;
+         the legacy BLUETOOTH permission covers API <= 30. -->
+    <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+
+    <application android:networkSecurityConfig="@xml/network_security_config">
+
+        <!--
+          Item 1: SMS Retriever API broadcast receiver. No READ_SMS or RECEIVE_SMS permission is
+          declared anywhere in this manifest. The broadcast is restricted to senders holding the
+          Google-Play-Services-only signature permission below, which is what makes this mechanism
+          safe to expose as android:exported="true" without granting the app any SMS-reading power.
+        -->
+        <receiver
+            android:name="com.promode.android17hardening.sms.SmsRetrievedReceiver"
+            android:exported="true"
+            android:permission="com.google.android.gms.auth.api.phone.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>

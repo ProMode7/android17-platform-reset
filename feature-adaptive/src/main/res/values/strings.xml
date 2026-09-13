@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="detail_placeholder_title">Select an article</string>
+    <string name="detail_placeholder_body">Choose an article from the list to read it here.</string>
+    <string name="back">Back</string>
+    <string name="single_pane_label">Single-pane (compact width)</string>
+    <string name="two_pane_label">Two-pane (medium width and up)</string>
+</resources>
